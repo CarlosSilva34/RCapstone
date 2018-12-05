@@ -1,0 +1,13 @@
+Package: RCapstone
+Title: Mastering Software Development in R Capstone Project
+Version: 0.1.0
+Authors@R: person("Carlos","Silva", role=c("aut","cre"), email="carlosaraujo34@gmail.com") 
+Description: The Coursera/Johns Hopkins Mastering Software Development in R Capstone Project.
+Depends: R (>= 3.4.0),
+Imports: dplyr, ggplot2, leaflet, tidyr, lubridate, readr
+License: GPL-3 + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Suggests: knitr, rmarkdown, testthat
+VignetteBuilder: knitr
+RoxygenNote: 6.1.1

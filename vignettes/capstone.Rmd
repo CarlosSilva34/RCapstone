@@ -1,0 +1,85 @@
+---
+title: "Mastering Software Development in R Capstone Project"
+author: "Carlos Silva"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+        
+```{r, echo = FALSE, include = FALSE}
+library(Rcapstone)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(grid)
+library(lubridate)
+library(leaflet)
+library(scales)
+```
+
+Overview of the `RCapstone` R package created for the purpose of visualizing U.S. National Oceanographic and Atmospheric Administation's (NOAA)  dataset of significant earthquakes. The data examined is from [NOAA database](https://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1) and visualizes them using `ggplot2` and `leaflet` packages. 
+
+## Installation
+
+You can install RCapstone from github with:
+
+```
+library(devtools)
+install_github("CarlosSilva34/RCapstone")
+library(RCapstone)
+```
+
+## Package functions
+
+Six exported functions available:
+
+- `eq_clean_data()`
+- `geom_timeline()`
+- `geom_timeline_label()`
+- `theme_timeline()`
+- `eq_create_label()`
+- `eq_map()`
+
+
+## Read and clean data
+
+The first function cleans the data for the visualization. It creates a DATE column in `Date` format, transforms latitude and longitude to numeric format and trims country from LOCATION_NAME.
+
+```{r eq_read, message = FALSE} 
+filename <- system.file("extdata/signif.txt", package = "RCapstone")
+data <- readr::read_delim(filename, delim = "\t")
+eq_clean_data(data)
+```
+
+## Timeline of earthquakes in US and China after 2000
+
+These functions use `ggplot2` package to visualize earthquake timeline. The basic `geom_timeline()` geom requires clean data. The required aesthetics is `x` with dates, optional are `y` for grouping by country, and `size` and `color`. The `geom_timeline_label()` function requires additional `label` aesthetic. For better visualization of these geoms, `theme_timeline()` theme was added.
+
+```{r eq_timeline_graph, fig.width = 7, fig.height = 4}
+data %>% eq_clean_data() %>%
+filter(COUNTRY %in% c("USA", "CHINA"), YEAR >= 2000) %>%
+ggplot(aes(x = DATE,
+y = COUNTRY,
+color = as.numeric(TOTAL_DEATHS),
+size = as.numeric(EQ_PRIMARY)
+)) +
+geom_timeline() +
+geom_timeline_label(aes(label = LOCATION_NAME), n_max = 5) +
+theme_timeline() +
+labs(size = "Richter scale value", color = "# deaths")
+```
+
+## Map of earthquakes in Mexico
+
+These functions use `leaflet` package to visualize earthquakes on a map using `eq_map()` function. Optional annotations can be created using `eq_create_label()` function. This creates an interactive map where user can click on individual points to get details.
+
+
+```{r eq_map_Mexico, fig.width = 7, fig.height = 4}
+data %>% 
+eq_clean_data() %>% 
+dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>% 
+dplyr::mutate(popup_text = eq_create_label(.)) %>% 
+eq_map(annot_col = "popup_text")
