@@ -1,3 +1,5 @@
+[![Travis build status](https://travis-ci.org/CarlosSilva34/RCapstone.svg?branch=master)](https://travis-ci.org/CarlosSilva34/RCapstone)
+
 # Mastering Software Development in R 
 # Capstone Project - NOAA Earthquake Visualizations
         
