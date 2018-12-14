@@ -10,7 +10,7 @@ vignette: >
 ---
         
 ```{r, echo = FALSE, include = FALSE}
-library(Rcapstone)
+library(RCapstone)
 library(dplyr)
 library(ggplot2)
 library(readr)
@@ -20,7 +20,7 @@ library(leaflet)
 library(scales)
 ```
 
-Overview of the `RCapstone` R package created for the purpose of visualizing U.S. National Oceanographic and Atmospheric Administation's (NOAA)  dataset of significant earthquakes. The data examined is from [NOAA database](https://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1) and visualizes them using `ggplot2` and `leaflet` packages. 
+Overview of the `RCapstone` R package created for visualizing U.S. National Oceanographic and Atmospheric Administation's (NOAA)  dataset of significant earthquakes. The data examined is from [NOAA database](https://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1).
 
 ## Installation
 
@@ -34,9 +34,10 @@ library(RCapstone)
 
 ## Package functions
 
-Six exported functions available:
+Exported functions available:
 
 - `eq_clean_data()`
+- `eq_location_clean()`
 - `geom_timeline()`
 - `geom_timeline_label()`
 - `theme_timeline()`
@@ -56,7 +57,7 @@ eq_clean_data(data)
 
 ## Timeline of earthquakes in US and China after 2000
 
-These functions use `ggplot2` package to visualize earthquake timeline. The basic `geom_timeline()` geom requires clean data. The required aesthetics is `x` with dates, optional are `y` for grouping by country, and `size` and `color`. The `geom_timeline_label()` function requires additional `label` aesthetic. For better visualization of these geoms, `theme_timeline()` theme was added.
+These functions use `ggplot2` package to visualize earthquake timeline. The`geom_timeline()` geom requires clean data. The aesthetics are `x` with dates, optional `y` for grouping by country,`size` and `color`. The `geom_timeline_label()` function requires `label` aesthetic. The `theme_timeline()` geom was added for better visualization.
 
 ```{r eq_timeline_graph, fig.width = 7, fig.height = 4}
 data %>% eq_clean_data() %>%

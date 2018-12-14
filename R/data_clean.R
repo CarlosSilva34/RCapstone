@@ -51,6 +51,7 @@ eq_clean_data <- function(raw_data){
 #' clean_data <- eq_location_clean(raw_data)
 #' }
 #'
+#' @export
 eq_location_clean <- function(raw_data){
 
         raw_data$LOCATION_NAME <- sapply(raw_data$LOCATION_NAME,

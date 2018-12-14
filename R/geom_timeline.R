@@ -24,6 +24,7 @@
 #'    theme_timeline() +
 #'    labs(size = "Richter scale value", color = "# deaths")
 #' }
+#' @export
 geom_timeline <- function(mapping = NULL, data = NULL, stat = "identity",
                           position = "identity", na.rm = FALSE,
                           show.legend = NA, inherit.aes = TRUE, ...) {
@@ -119,7 +120,6 @@ theme_timeline <- function() {
 #' required aesthetics for this geom is \code{label} that should contain
 #' string for labeling each data point.
 #'
-#' @export
 #'
 #' @importFrom ggplot2 layer draw_key_blank
 #' @importFrom dplyr %>% group_by top_n ungroup
@@ -139,6 +139,7 @@ theme_timeline <- function() {
 #'    theme_timeline() +
 #'    labs(size = "Richter scale value", color = "# deaths")
 #' }
+#' @export
 geom_timeline_label <- function(mapping = NULL, data = NULL, stat = "identity",
                                 position = "identity", ..., na.rm = FALSE,
                                 n_max = NULL, show.legend = NA,

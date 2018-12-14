@@ -1,4 +1,4 @@
 library(testthat)
-library(Rcapstone)
+library(RCapstone)
 
-test_check("Rcapstone")
+test_check("RCapstone")
